@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import java.time.LocalDate;
 
 @Configuration
 public class LoadDatabase {
@@ -14,8 +15,8 @@ public class LoadDatabase {
     @Bean
     CommandLineRunner initDatabase(EmployeeRepository repository){
         return args->{
-            log.info("Preloading " + repository.save(new Employee("Bilbo Baggins", "burglar")));
-            log.info("Preloading " + repository.save(new Employee("Frodo Baggins", "thief")));
+            log.info("Preloading " + repository.save(new Employee("Bilbo Baggins", "burglar", LocalDate.of(1986, 11, 22))));;
+            log.info("Preloading " + repository.save(new Employee("Frodo Baggins", "thief", LocalDate.of(1976, 7, 13))));
         };
     }
 }

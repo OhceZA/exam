@@ -3,7 +3,11 @@ package ch.etmles.payroll.Entities;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import org.springframework.cglib.core.Local;
 
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 @Entity
@@ -13,12 +17,14 @@ public class Employee {
     @GeneratedValue Long id;
     private String name;
     private String role;
+    private LocalDate dateOfBirth;
 
     public Employee(){}
 
-    public Employee(String name, String role){
+    public Employee(String name, String role, LocalDate dateOfBirth){
         this.setName(name);
         this.setRole(role);
+        this.setDateOfBirth(dateOfBirth);
     }
 
     public Long getID(){
@@ -45,23 +51,35 @@ public class Employee {
         this.role = role;
     }
 
+    public LocalDate getBirthday(){ return this.dateOfBirth; }
+
+    public int getAge(LocalDate dateOfBirth){
+        LocalDate currentDate = LocalDate.now();
+        return Period.between(dateOfBirth, currentDate).getYears();
+    }
+
+    public void setDateOfBirth(LocalDate dateOfBirth){ this.dateOfBirth = dateOfBirth; }
+
+
     @Override
     public boolean equals(Object o){
         if(this == o)
             return true;
         if(!(o instanceof Employee employee))
             return false;
-        return Objects.equals(this.id, employee.id) && Objects.equals(this.name, employee.name)
-                && Objects.equals(this.role, employee.role);
+        return Objects.equals(this.id, employee.id)
+                && Objects.equals(this.name, employee.name)
+                && Objects.equals(this.role, employee.role)
+                && Objects.equals(this.dateOfBirth, employee.dateOfBirth);
     }
 
     @Override
     public int hashCode(){
-        return Objects.hash(this.id, this.name, this.role);
+        return Objects.hash(this.id, this.name, this.role, this.dateOfBirth);
     }
 
     @Override
     public String toString(){
-        return "Employee{" + "id=" + this.getID() + ", name='" + this.getName() + '\'' + ", role='" + this.getRole() + '\'' + '}';
+        return "Employee{" + "id=" + this.getID() + ", name='" + this.getName() + '\'' + ", role='" + this.getRole() + '\'' + '\'' + ", dateOfBirth='" + this.getBirthday() + '\'' + '}';
     }
 }

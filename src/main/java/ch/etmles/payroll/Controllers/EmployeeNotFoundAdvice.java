@@ -15,4 +15,10 @@ public class EmployeeNotFoundAdvice {
     String employeeNotFoundHandler(EmployeeNotFoundException ex){
         return ex.getMessage();
     }
+    @ResponseBody
+    @ExceptionHandler(EmployeeIsMinorException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    String handleEmployeeIsMinor(EmployeeIsMinorException ex){
+        return ex.getMessage();
+    }
 }

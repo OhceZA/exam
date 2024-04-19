@@ -29,8 +29,13 @@ public class EmployeeController {
         -d "{\"name\": \"Russel George\", \"role\": \"gardener\"}"
     */
     @PostMapping("/employees")
-    Employee newEmployee(@RequestBody Employee newEmployee){
-        return repository.save(newEmployee);
+    Employee newEmployee(@RequestBody Employee newEmployee) {
+        if (newEmployee.getAge(newEmployee.getBirthday()) > 18) {
+            return repository.save(newEmployee);
+        } else {
+            repository.findById(newEmployee.getName()).orElseThrow(() -> new EmployeeIsMinorException(newEmployee.getName()));
+        }
+        return newEmployee;
     }
 
     /* curl sample :
@@ -53,12 +58,15 @@ public class EmployeeController {
                 .map(employee -> {
                     employee.setName(newEmployee.getName());
                     employee.setRole(newEmployee.getRole());
+                    employee.setDateOfBirth(newEmployee.getBirthday());
+                    if (newEmployee.getAge(newEmployee.getBirthday()) > 18) {
                     return repository.save(employee);
-                })
-                .orElseGet(() -> {
-                    newEmployee.setId(id);
-                    return repository.save(newEmployee);
-                });
+                }else{
+                        repository.findById(newEmployee.getName()).orElseThrow(() -> new EmployeeIsMinorException(newEmployee.getName()));
+                    }
+                            return null;
+                        }
+                );
     }
 
     /* curl sample :

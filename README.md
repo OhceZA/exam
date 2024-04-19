@@ -1,6 +1,6 @@
-# Exam training
+# Exam
 
-This repository has been created as a learning tool for getting to grips with spring boot.
+This repository has been created to assess students' skills on Spring.
 
 ## First build
 
@@ -28,11 +28,11 @@ to retrieve the dependencies, compile and run the program for the first time.
 
 Got the file [project]\src\main\java\ch\etmles\payroll\Controllers\EmployeeController.java
 
-Before all routes, you will find a curl sample.
+Before all routes methods, you will find a curl sample.
 
 ## Backlog
 
-Read the different issues that are present. They describe the branch to be used for the starting point and the expected result.
+Read the different issues.
 
-[Issues](https://github.com/ETML-ES-FWBE/exam-training/issues)
+[Issues](https://github.com/ETML-ES-FWBE/exam/issues)
 
